@@ -3,22 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/style.css" />
     <title>practice_12-06</title>
   </head>
   <body>
     <div class="container">
       <section class="service_data">
-        <p class="day">Среда</p>
+        <h2 class="section_heading day">Среда</h2>
         <p class="date">3 января</p>
         <label for="">
-          <input
-            class="search_field"
-            type="search"
-            name="search_field"
-            placeholder="Поиск"
-          />
-          <button type="button">
+          <input class="search_field" type="text" placeholder="Поиск" />
+          <button class="search_button" type="button">
             <svg
               class="search_icon"
               width="18"
@@ -39,6 +40,7 @@
       </section>
 
       <section class="new_task">
+        <h2 class="section_heading">Новая запись</h2>
         <div class="task_form">
           <input
             class="task_description"
@@ -48,37 +50,58 @@
           />
           <input
             class="task_date"
-            type="date"
+            type="text"
             name="task_date"
             placeholder="Дата"
           />
-          <button class="add_task_button" type="button">Добавить</button>
-          <button class="erase_button" type="button">Добавить</button>
+
+          <div class="btn_container">
+            <button class="button add_task_button" type="button">
+              Добавить
+            </button>
+            <button class="button erase_button" type="button">Сбросить</button>
+          </div>
         </div>
       </section>
       <section class="tasks">
+        <h2 class="section_heading">Список дел</h2>
+
         <div class="filter_container">
-          <label for="all"
-            >Все
-            <input type="radio" name="all_tasks" id="all" />
+          <label for="all">
+            <input class="radio" type="radio" name="all_tasks" id="all" />
+            <span class="custom_radio"> </span>
+            Все
           </label>
 
-          <label for="all"
-            >Активные
-            <input type="radio" name="current" id="current" />
+          <label for="current">
+            <input
+              class="radio"
+              type="radio"
+              name="current"
+              id="current"
+            />Активные
           </label>
 
-          <label for="all"
-            >Завершенные
-            <input type="radio" name="completed" id="completed" />
+          <label for="completed">
+            <input
+              class="radio"
+              type="radio"
+              name="completed"
+              id="completed"
+            />Завершенные
           </label>
         </div>
 
         <ul class="task_list">
           <li class="task_option">
-            <input class="task_checker" type="checkbox" name="task_info" />
+            <input
+              class="task_checker"
+              type="checkbox"
+              name="task_info"
+              checked
+            />
             <div class="task_info">
-              <p class="task_date task_date_completed">10января, 11-30</p>
+              <p class="task_date task_date_completed">10 января, 11-30</p>
               <p class="task_heading task_heading_completed">Покормить кошку</p>
             </div>
           </li>
@@ -86,7 +109,7 @@
           <li class="task_option">
             <input class="task_checker" type="checkbox" name="task_info" />
             <div class="task_info">
-              <p class="task_date">10января, 11-30</p>
+              <p class="task_date">10 января, 11-30</p>
               <p class="task_heading">Покормить кошку</p>
             </div>
           </li>
