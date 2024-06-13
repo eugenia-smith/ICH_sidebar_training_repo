@@ -40,20 +40,16 @@
       </section>
 
       <section class="new_task">
+        <!-- Вместо div реализовывать через форму -->
         <h2 class="section_heading">Новая запись</h2>
-        <div class="task_form">
+        <form class="task_form">
           <input
             class="task_description"
             type="text"
             name="task_description"
             placeholder="Описание"
           />
-          <input
-            class="task_date"
-            type="text"
-            name="task_date"
-            placeholder="Дата"
-          />
+          <input class="task_date" type="date" name="task_date" />
 
           <div class="btn_container">
             <button class="button add_task_button" type="button">
@@ -61,7 +57,7 @@
             </button>
             <button class="button erase_button" type="button">Сбросить</button>
           </div>
-        </div>
+        </form>
       </section>
       <section class="tasks">
         <h2 class="section_heading">Список дел</h2>
