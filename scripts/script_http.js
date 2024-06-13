@@ -31,3 +31,14 @@ taskForm.addEventListener("submit", (event) => {
     taskTitleInput.value = "";
   }
 });
+
+//логика реализации зачеркивания
+const checkbox = document.querySelector(".taskCheckbox");
+const taskTitle = //какой-то заголовок задачи
+  checkbox.addEventListener("change", (event) => {
+    if (event.target.checked === true) {
+      taskTitle.style.textDecoration = "line-through";
+    } else {
+      taskTitle.style.textDecoration = "none";
+    }
+  });
