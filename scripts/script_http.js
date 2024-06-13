@@ -3,9 +3,7 @@ const taskTitleInput = document.querySelector(".task_description");
 const taskDate = document.querySelector(".task_date");
 const taskContainer = document.querySelector(".task_list");
 
-taskForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
+function renderTask() {
   console.log(taskTitleInput.value);
   console.log(taskDate.value);
 
@@ -21,4 +19,15 @@ taskForm.addEventListener("submit", (event) => {
 
   liContainer.append(checkbox, taskTitle, taskData);
   taskContainer.append(liContainer);
+}
+
+taskForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (taskTitleInput.value === "" || taskDate.value === "") {
+    console.log("empty");
+  } else {
+    renderTask();
+    taskTitleInput.value = "";
+  }
 });
