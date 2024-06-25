@@ -1,24 +1,27 @@
 const taskForm = document.querySelector(".task_form");
-const taskTitleInput = document.querySelector(".task_description");
+const taskTitle = document.querySelector(".task_description");
 const taskDate = document.querySelector(".task_date");
 const taskContainer = document.querySelector(".task_list");
+const task = document.querySelector(".task_option");
 
 function renderTask(taskElement) {
-  console.log(taskTitleInput.value);
+  console.log(taskTitle.value);
   console.log(taskDate.value);
 
-  const liContainer = document.createElement("li");
-  const checkbox = document.createElement("input");
-  const taskTitle = document.createElement("h3");
-  const taskData = document.createElement("p");
+  // const liContainer = document.createElement("li");
+  // const checkbox = document.createElement("input");
+  // const taskTitle = document.createElement("h3");
+  // const taskData = document.createElement("p");
 
-  taskTitle.textContent = taskElement.title;
-  taskData.textContent = taskElement.date;
+  taskElement.title = taskTitle.textContent;
+  taskElement.date = taskDate.textContent;
 
-  checkbox.setAttribute("type", "checkbox");
+  // checkbox.setAttribute("type", "checkbox");
+  taskContainer.append(task.cloneNode(true));
+  // liContainer.append(checkbox, taskTitle, taskData);
+  // taskContainer.append(liContainer);
 
-  liContainer.append(checkbox, taskTitle, taskData);
-  taskContainer.append(liContainer);
+  return taskElement;
 }
 
 taskForm.addEventListener("submit", (event) => {
@@ -33,15 +36,15 @@ taskForm.addEventListener("submit", (event) => {
 });
 
 //логика реализации зачеркивания
-const checkbox = document.querySelector(".taskCheckbox");
-const taskTitle = //какой-то заголовок задачи
-  checkbox.addEventListener("change", (event) => {
-    if (event.target.checked === true) {
-      taskTitle.style.textDecoration = "line-through";
-    } else {
-      taskTitle.style.textDecoration = "none";
-    }
-  });
+const checkbox = document.querySelector(".task_checker");
+taskTitle; //какой-то заголовок задачи
+checkbox.addEventListener("change", (event) => {
+  if (event.target.checked === true) {
+    taskTitle.style.textDecoration = "line-through";
+  } else {
+    taskTitle.style.textDecoration = "none";
+  }
+});
 
 //логика взаимодействия с задачами в localStorage
 // данные хранятся в виде массива объектов, где каждая задача -- объект
@@ -90,21 +93,21 @@ taskForm.addEventListener("submit", (event) => {
 
 //реализация логики поиска
 
-const searchInput = document.querySelector(".search_input");
+// const searchInput = document.querySelector(".search_input");
 
-function searchTasks(tasksArray, value) {
-  taskContainer.textContent = "";
+// function searchTasks(tasksArray, value) {
+//   taskContainer.textContent = "";
 
-  const result = tasksArray.filter((task) => {
-    return task.title.includes(value);
-  });
+//   const result = tasksArray.filter((task) => {
+//     return task.title.includes(value);
+//   });
 
-  result.forEach(() => {
-    renderTask(task);
-  });
-}
+//   result.forEach(() => {
+//     renderTask(task);
+//   });
+// }
 
-searchInput.addEventListener("focus", () => {
-  // можно обращаться через event.target.value (необходимо передать event в коллбек)
-  const userInputValue = searchInput.value;
-});
+// searchInput.addEventListener("focus", () => {
+//   // можно обращаться через event.target.value (необходимо передать event в коллбек)
+//   const userInputValue = searchInput.value;
+// });
