@@ -1,50 +1,51 @@
+// переменные формы ввода
+
 const taskForm = document.querySelector(".task_form");
 const taskTitle = document.querySelector(".task_description");
 const taskDate = document.querySelector(".task_date");
+
+// элементы ноды таски
 const taskContainer = document.querySelector(".task_list");
-const task = document.querySelector(".task_option");
+// const task = document.querySelector(".task_option");
+const taskTime = document.querySelector(".task_time");
+const taskHeading = document.querySelector(".task_heading");
 
-function renderTask(taskElement) {
-  console.log(taskTitle.value);
-  console.log(taskDate.value);
+function addTask() {
+  const taskOption = document.createElement("li");
+  taskOption.classList.add("task_option");
+  taskOption.innerHTML = `
+  <input class="task_checker" type="checkbox" name="task_info" />
+  <div class="task_info">
+  <p class="task_time">${taskDate.value}</p>
+  <p class="task_heading">${taskTitle.value}</p>
+  </div>`;
+  taskContainer.append(taskOption);
 
-  // const liContainer = document.createElement("li");
-  // const checkbox = document.createElement("input");
-  // const taskTitle = document.createElement("h3");
-  // const taskData = document.createElement("p");
-
-  taskElement.title = taskTitle.textContent;
-  taskElement.date = taskDate.textContent;
-
-  // checkbox.setAttribute("type", "checkbox");
-  taskContainer.append(task.cloneNode(true));
-  // liContainer.append(checkbox, taskTitle, taskData);
-  // taskContainer.append(liContainer);
-
-  return taskElement;
+  return taskOption;
 }
 
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  if (taskTitleInput.value === "" || taskDate.value === "") {
+  if (taskTitle.value === "" || taskDate.value === "") {
     console.log("empty");
   } else {
-    renderTask();
-    taskTitleInput.value = "";
+    addTask();
+    taskTitle.value = "";
+    taskDate.value = "";
   }
 });
 
 //логика реализации зачеркивания
-const checkbox = document.querySelector(".task_checker");
-taskTitle; //какой-то заголовок задачи
-checkbox.addEventListener("change", (event) => {
-  if (event.target.checked === true) {
-    taskTitle.style.textDecoration = "line-through";
-  } else {
-    taskTitle.style.textDecoration = "none";
-  }
-});
+// const checkbox = document.querySelector(".task_checker");
+// taskTitle; //какой-то заголовок задачи
+// checkbox.addEventListener("change", (event) => {
+//   if (event.target.checked === true) {
+//     taskTitle.style.textDecoration = "line-through";
+//   } else {
+//     taskTitle.style.textDecoration = "none";
+//   }
+// });
 
 //логика взаимодействия с задачами в localStorage
 // данные хранятся в виде массива объектов, где каждая задача -- объект
