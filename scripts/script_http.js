@@ -87,3 +87,24 @@ taskForm.addEventListener("submit", (event) => {
   tasks.push(newTask);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 });
+
+//реализация логики поиска
+
+const searchInput = document.querySelector(".search_input");
+
+function searchTasks(tasksArray, value) {
+  taskContainer.textContent = "";
+
+  const result = tasksArray.filter((task) => {
+    return task.title.includes(value);
+  });
+
+  result.forEach(() => {
+    renderTask(task);
+  });
+}
+
+searchInput.addEventListener("focus", () => {
+  // можно обращаться через event.target.value (необходимо передать event в коллбек)
+  const userInputValue = searchInput.value;
+});
