@@ -10,32 +10,63 @@ const taskContainer = document.querySelector(".task_list");
 const taskTime = document.querySelector(".task_time");
 const taskHeading = document.querySelector(".task_heading");
 
-// добавление таски в лист
-function addTask() {
+const searchInput = document.querySelector(".search_field");
+const searchButton = document.querySelector(".search_button");
+
+function renderOneTask(task) {
   const taskOption = document.createElement("li");
   taskOption.classList.add("task_option");
-  taskOption.innerHTML = `
-  <input class="task_checker" type="checkbox" name="task_info" />
-  <div class="task_info">
-  <p class="task_time">${taskDate.value}</p>
-  <p class="task_heading">${taskTitle.value}</p>
-  </div>`;
+  if (task.done) {
+    taskOption.innerHTML = `
+    <input id="${task.id}" class="task_checker" type="checkbox" name="task_info" checked/>
+    <div class="task_info">
+    <p class="task_date task_date_completed">${task.date}</p>
+    <p class="task_heading task_heading_completed">${task.description}</p>
+    </div>`;
+  } else {
+    taskOption.innerHTML = `
+    <input id="${task.id}" class="task_checker" type="checkbox" name="task_info" />
+    <div class="task_info">
+    <p class="task_time">${task.date}</p>
+    <p class="task_heading">${task.description}</p>
+    </div>`;
+  }
   taskContainer.append(taskOption);
 
-  return taskOption;
+  const checkbox = document.getElementById(task.id);
+
+  checkbox.addEventListener("change", (event) => {
+    const taskId = event.target.id;
+    const taskStatus = event.target.checked;
+    let tasksArray = JSON.parse(localStorage.getItem("tasksArray")) || [];
+    const taskIndex = tasksArray.findIndex((elem) => {
+      return elem.id === taskId;
+    });
+
+    tasksArray[taskIndex].done = taskStatus;
+    localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+    // console.log(`Changed task ${taskId} status to ${taskStatus}`);
+    renderTasks();
+  });
 }
 
-taskForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  if (taskTitle.value === "" || taskDate.value === "") {
-    console.log("empty");
+function renderTasks() {
+  const tasksArray = JSON.parse(localStorage.getItem("tasksArray")) || [];
+  const searchFilter = searchInput.value;
+  let result;
+  if (searchFilter) {
+    console.log(`Rendering with filter ${searchFilter}`);
+    result = tasksArray.filter((task) => {
+      return task.description.includes(searchFilter);
+    });
   } else {
-    addTask();
-    taskTitle.value = "";
-    taskDate.value = "";
+    result = tasksArray;
   }
-});
+  taskContainer.textContent = "";
+  result.forEach((task) => {
+    renderOneTask(task);
+  });
+}
 
 //логика взаимодействия с задачами в localStorage
 // данные хранятся в виде массива объектов, где каждая задача -- объект
@@ -46,75 +77,55 @@ function getTasks() {
   return localStorageTasks;
 }
 
-//логика реализации зачеркивания
-// const checkbox = document.querySelector(".task_checker");
-// taskTitle; //какой-то заголовок задачи
-// checkbox.addEventListener("change", (event) => {
-//   if (event.target.checked === true) {
-//     taskTitle.style.textDecoration = "line-through";
-//   } else {
-//     taskTitle.style.textDecoration = "none";
-//   }
-// });
+// создание объекта таски
 
-// if (tasks.length !== 0) {
-//   tasks.forEach((task) => {
-//     addTask(task);
-//   });
-// }
+function createTaskObject() {
+  const currentTaskList = getTasks();
 
-// if (tasks.length !== 0) {
-//   tasks.forEach((task) => {
-//     const liContainer = document.createElement("li");
-//     const dateText = document.createElement("p");
-//     const heading = document.createElement("h3");
-//     const checkbox = document.createElement("input");
-//     checkbox.setAttribute("type", "checkbox");
+  const newTask = {
+    id: "task_" + Math.random().toString(16).slice(2),
+    date: taskDate.value,
+    description: taskTitle.value,
+    done: false,
+  };
 
-//     liContainer.append(checkbox, heading, dateText);
+  currentTaskList.push(newTask);
+  // console.log(`Added task: ${newTask}`);
+  localStorage.setItem("tasksArray", JSON.stringify(currentTaskList));
 
-//     dateText.textContent = task.date;
-//     heading.textContent = task.title;
+  return newTask;
+}
 
-//     taskContainer.append(liContainer);
-//   });
-// }
+taskForm.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-// // или воспользоваться функцией, написанной ранее
+  if (taskTitle.value === "" || taskDate.value === "") {
+    console.log("empty");
+  } else {
+    createTaskObject();
+    renderTasks();
+    taskTitle.value = "";
+    taskDate.value = "";
+  }
+});
 
-// taskForm.addEventListener("submit", (event) => {
-//   event.preventDefault();
+searchButton.addEventListener("click", () => {
+  renderTasks();
+});
 
-//   const newTask = {
-//     id: Math.random(),
-//     title: taskTitleInput.value,
-//     date: taskDate.value,
-//     completed: false,
-//   };
+searchInput.addEventListener("input", () => {
+  renderTasks();
+});
 
-//   renderTask(newTask);
+function deleteTask(taskId) {
+  let tasksArray = JSON.parse(localStorage.getItem("tasksArray")) || [];
+  const taskIndex = tasksArray.findIndex((elem) => {
+    return elem.id === taskId;
+  });
+  tasksArray.splice(taskIndex, 1);
+  localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+  console.log(`Deleted task ${taskId}`);
+  renderTasks();
+}
 
-//   tasks.push(newTask);
-//   localStorage.setItem("tasks", JSON.stringify(tasks));
-// });
-
-//реализация логики поиска
-
-// const searchInput = document.querySelector(".search_input");
-
-// function searchTasks(tasksArray, value) {
-//   taskContainer.textContent = "";
-
-//   const result = tasksArray.filter((task) => {
-//     return task.title.includes(value);
-//   });
-
-//   result.forEach(() => {
-//     renderTask(task);
-//   });
-// }
-
-// searchInput.addEventListener("focus", () => {
-//   // можно обращаться через event.target.value (необходимо передать event в коллбек)
-//   const userInputValue = searchInput.value;
-// });
+document.addEventListener("DOMContentLoaded", renderTasks);
