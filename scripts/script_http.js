@@ -10,6 +10,7 @@ const taskContainer = document.querySelector(".task_list");
 const taskTime = document.querySelector(".task_time");
 const taskHeading = document.querySelector(".task_heading");
 
+// добавление таски в лист
 function addTask() {
   const taskOption = document.createElement("li");
   taskOption.classList.add("task_option");
@@ -36,6 +37,15 @@ taskForm.addEventListener("submit", (event) => {
   }
 });
 
+//логика взаимодействия с задачами в localStorage
+// данные хранятся в виде массива объектов, где каждая задача -- объект
+function getTasks() {
+  const localStorageTasks =
+    JSON.parse(localStorage.getItem("tasksArray")) || [];
+
+  return localStorageTasks;
+}
+
 //логика реализации зачеркивания
 // const checkbox = document.querySelector(".task_checker");
 // taskTitle; //какой-то заголовок задачи
@@ -47,50 +57,46 @@ taskForm.addEventListener("submit", (event) => {
 //   }
 // });
 
-//логика взаимодействия с задачами в localStorage
-// данные хранятся в виде массива объектов, где каждая задача -- объект
-const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+// if (tasks.length !== 0) {
+//   tasks.forEach((task) => {
+//     addTask(task);
+//   });
+// }
 
-if (tasks.length !== 0) {
-  tasks.forEach((task) => {
-    renderTask(task);
-  });
-}
+// if (tasks.length !== 0) {
+//   tasks.forEach((task) => {
+//     const liContainer = document.createElement("li");
+//     const dateText = document.createElement("p");
+//     const heading = document.createElement("h3");
+//     const checkbox = document.createElement("input");
+//     checkbox.setAttribute("type", "checkbox");
 
-if (tasks.length !== 0) {
-  tasks.forEach((task) => {
-    const liContainer = document.createElement("li");
-    const dateText = document.createElement("p");
-    const heading = document.createElement("h3");
-    const checkbox = document.createElement("input");
-    checkbox.setAttribute("type", "checkbox");
+//     liContainer.append(checkbox, heading, dateText);
 
-    liContainer.append(checkbox, heading, dateText);
+//     dateText.textContent = task.date;
+//     heading.textContent = task.title;
 
-    dateText.textContent = task.date;
-    heading.textContent = task.title;
+//     taskContainer.append(liContainer);
+//   });
+// }
 
-    taskContainer.append(liContainer);
-  });
-}
+// // или воспользоваться функцией, написанной ранее
 
-// или воспользоваться функцией, написанной ранее
+// taskForm.addEventListener("submit", (event) => {
+//   event.preventDefault();
 
-taskForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+//   const newTask = {
+//     id: Math.random(),
+//     title: taskTitleInput.value,
+//     date: taskDate.value,
+//     completed: false,
+//   };
 
-  const newTask = {
-    id: Math.random(),
-    title: taskTitleInput.value,
-    date: taskDate.value,
-    completed: false,
-  };
+//   renderTask(newTask);
 
-  renderTask(newTask);
-
-  tasks.push(newTask);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-});
+//   tasks.push(newTask);
+//   localStorage.setItem("tasks", JSON.stringify(tasks));
+// });
 
 //реализация логики поиска
 
