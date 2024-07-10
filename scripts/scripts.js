@@ -38,13 +38,17 @@ leftButton.addEventListener("click", goLeft);
 rightButton.addEventListener("click", goRight);
 
 function goRight() {
-  sliderIndex++;
-  cards.style.left = `${sliderIndex * -1 * 500}px`;
+  if (sliderIndex < images.length) {
+    sliderIndex++;
+    cards.style.left = `${sliderIndex * -1 * 500}px`;
+  }
 }
 
 function goLeft() {
-  sliderIndex--;
-  cards.style.left = `${sliderIndex * -1 * 500}px`;
+  if (sliderIndex !== 0) {
+    sliderIndex--;
+    cards.style.left = `${sliderIndex * -1 * 500}px`;
+  }
 }
 
 const pagination = document.createElement("div");
