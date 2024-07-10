@@ -10,176 +10,73 @@
   color: #49454f;
 }
 
-body {
-  background-color: #1e1e1e;
-}
-
-section {
-  margin-bottom: 16px;
-}
-
-.container {
-  max-width: 428px;
-
-  margin: 0 auto;
-  padding: 24px 16px;
-  border-radius: 8px;
-
-  background-color: #fffbff;
-}
-
-.section_heading {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.service_data > label {
+.frame {
   position: relative;
-  display: flex;
-
-  margin-top: 16px;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
 }
 
-.search_field {
-  padding-left: 12px;
-  width: 100%;
-  height: 48px;
-  border: none;
-  border-radius: 28px;
-
-  background-color: rgba(103, 80, 164, 0.05);
-}
-
-.search_button {
+.cards {
   position: absolute;
-  top: 4px;
-  right: 12px;
+  left: 0;
+  transition: left 0.5s ease;
+  display: grid;
+  grid-auto-flow: column;
+}
 
+.card {
+  width: 500px;
+  height: 500px;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.triggers {
+  position: absolute;
+  left: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
 
-  width: 40px;
-  height: 40px;
+.triggers button {
+  width: 50px;
+  font-size: 40px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
   border: none;
-  background-color: transparent;
-
+  opacity: 0;
+  transition: opacity 0.5s;
   cursor: pointer;
 }
 
-.new_task .section_heading,
-.tasks .section_heading {
-  margin-bottom: 16px;
+.triggers button:hover {
+  opacity: 1;
 }
 
-.task_form {
-  padding: 16px;
-  width: 100%;
-  border-radius: 16px;
+.pagination {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
-  background-color: #f7f2fa;
-}
-
-.task_form input {
-  margin-bottom: 16px;
-  padding: 16px;
-
-  width: 100%;
-  height: 56px;
-  border: 1px solid #79747e;
-  border-radius: 4px;
-}
-
-.btn_container {
   display: flex;
-  gap: 8px;
-  justify-content: end;
+  gap: 16px;
 }
 
-.button {
-  width: 115px;
-  height: 40px;
-  border: 1px solid #79747e;
-  border-radius: 100px;
-
-  font-size: 14px;
-  font-weight: 600;
-  color: #6750a4;
-}
-
-.button:hover {
-  border: none;
-  background-color: #6750a4;
-  color: #ffffff;
-}
-
-.filter_container {
-  display: flex;
-
-  margin-bottom: 16px;
-
-  width: 100%;
-  height: 40px;
-  border: 1px solid #e8def8;
-  border-radius: 100px;
-}
-
-.filter_container label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: calc(100% / 3);
-
-  font-size: 14px;
-  font-weight: 600;
-  color: #1d1b20;
-
+.pagination button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid black;
+  background-color: #e5eced;
   cursor: pointer;
 }
 
-.task_option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-bottom: 12px;
-  padding: 16px;
-
-  width: 100%;
-  height: 65px;
-  border-radius: 16px;
-
-  background-color: rgba(103, 80, 164, 0.05);
-}
-
-.task_checker {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #49454f;
-  border-radius: 2px;
-}
-
-.task_checker:checked {
-  accent-color: #d0bcff;
-}
-
-.task_info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.task_heading {
-  font-size: 16px;
-}
-
-.task_date_completed,
-.task_heading_completed {
-  color: #1d1b1e;
-  opacity: 0.5;
-}
-
-.task_heading_completed {
-  text-decoration: line-through;
+.pagination .active {
+  background-color: teal;
 }
