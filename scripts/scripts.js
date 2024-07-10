@@ -11,6 +11,8 @@ const frame = document.createElement("div");
 const cards = document.createElement("div");
 const triggers = document.createElement("div");
 
+//кнопки прокрутки
+
 const leftButton = document.createElement("button");
 leftButton.textContent = "<";
 const rightButton = document.createElement("button");
@@ -33,48 +35,47 @@ images.forEach((elem) => {
 
 let sliderIndex = 0;
 
-leftButton.addEventListener("click", goLeft);
-
-rightButton.addEventListener("click", goRight);
+function moveToCard(cardIndex) {
+  // снимает активный статус с текущей кнопки
+  // ставит активный статус на текущую кнопку
+  // отрисовывает переход на карточку
+  if (cardIndex >= 0 && cardIndex < images.length) {
+    paginationButtons[sliderIndex].classList.remove("active");
+    sliderIndex = cardIndex;
+    paginationButtons[sliderIndex].classList.add("active");
+    cards.style.left = `${-1 * cardIndex * 500}px`;
+  }
+}
 
 function goRight() {
-  if (sliderIndex < images.length) {
-    sliderIndex++;
-    cards.style.left = `${sliderIndex * -1 * 500}px`;
-  }
+  moveToCard(sliderIndex + 1);
 }
 
 function goLeft() {
-  if (sliderIndex !== 0) {
-    sliderIndex--;
-    cards.style.left = `${sliderIndex * -1 * 500}px`;
-  }
+  moveToCard(sliderIndex - 1);
 }
+
+leftButton.addEventListener("click", goLeft);
+rightButton.addEventListener("click", goRight);
+
+// пагинация
 
 const pagination = document.createElement("div");
 pagination.classList.add("pagination");
 frame.append(pagination);
 
+const paginationButtons = [];
+
 images.forEach((elem, ind) => {
   const paginationButton = document.createElement("button");
+  paginationButtons.push(paginationButton);
   pagination.append(paginationButton);
 
-  if (ind === 0) {
+  if (ind === sliderIndex) {
     paginationButton.classList.add("active");
   }
 
   paginationButton.addEventListener("click", () => {
-    sliderIndex = ind;
-    cards.style.left = `${-1 * ind * 500}px`;
-
-    const allPaginationButtons = pagination.children;
-    for (let btn of allPaginationButtons) {
-      btn.classList.remove("active");
-    }
-
-    paginationButton.classList.add("active");
+    moveToCard(ind);
   });
 });
-
-//рефакторинг -- оптимизация циклов; декомпозиция больших функций; goright goLeft;
-//весь код обернуть в функцию и вызывать его с передачей элементов, а в идеале -- через класс
