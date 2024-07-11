@@ -11,6 +11,8 @@
 }
 
 .main_nav {
+  position: relative;
+
   padding: 16px;
   width: 100%;
   min-height: 48px;
@@ -33,17 +35,25 @@
 }
 
 .side_nav {
-  display: none;
-  /* display: grid; */
+  position: absolute;
+  top: 0;
+  left: -350px;
+  display: grid;
   grid-gap: 16px;
 
   padding: 16px;
 
-  max-width: 500px;
+  min-width: 300px;
 
   background-color: pink;
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.7);
+
+  transition: left 0.5s ease-in-out;
 }
+
+/* .hidden {
+  display: none;
+} */
 
 .nav_container {
   display: flex;
