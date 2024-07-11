@@ -11,7 +11,49 @@
 }
 
 .side_nav {
-  margin: 16px;
+  display: grid;
+  grid-gap: 16px;
+
+  padding: 16px;
+
   max-width: 500px;
+
   background-color: pink;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.7);
+}
+
+.nav_container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav_option {
+  display: flex;
+  align-items: center;
+
+  padding: 16px;
+
+  width: 100%;
+  min-height: 48px;
+  border-radius: 8px;
+
+  background-color: bisque;
+}
+
+.close_btn {
+  justify-self: end;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 24px;
+  height: 24px;
+  border: 2px solid black;
+  border-radius: 50%;
+
+  background-color: transparent;
+
+  cursor: pointer;
 }
