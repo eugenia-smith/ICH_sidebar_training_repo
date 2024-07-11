@@ -10,8 +10,31 @@
   color: #49454f;
 }
 
+.main_nav {
+  padding: 16px;
+  width: 100%;
+  min-height: 48px;
+
+  background-color: lightskyblue;
+}
+
+.open_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 24px;
+  height: 24px;
+  border: none;
+
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
 .side_nav {
-  display: grid;
+  display: none;
+  /* display: grid; */
   grid-gap: 16px;
 
   padding: 16px;
